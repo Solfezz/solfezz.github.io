@@ -3,1010 +3,395 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solfezz – Full Stack Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Solfezz — Full Stack Engineer & Systems Architect</title>
+<meta name="description" content="10 years engineering production e-commerce and ERP infrastructure.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:    #0b1f3a;
-    --blue:    #1a5fa8;
-    --accent:  #e8a020;
-    --accent2: #f0c060;
-    --pale:    #d6e8f7;
-    --text:    #1e2a3a;
-    --muted:   #6b7c93;
-    --bg:      #f2f5f9;
+    --bg: #050505;
+    --bg-grid: rgba(255, 255, 255, 0.03);
+    --surface: rgba(22, 27, 34, 0.6);
+    --surface-hover: rgba(30, 37, 46, 0.8);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    --accent: #58a6ff;
+    --accent-glow: rgba(88, 166, 255, 0.15);
+    --green: #3fb950;
+    --green-soft: rgba(63, 185, 80, 0.12);
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #484f58;
+    --mono: 'Geist Mono', monospace;
+    --serif: 'Instrument Serif', serif;
+    --sans: 'Geist', sans-serif;
   }
 
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image: 
+      linear-gradient(var(--bg-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
     color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top:0; left:0; right:0; z-index:100;
-    height: 62px;
-    background: rgba(11,31,58,0.97);
-    backdrop-filter: blur(10px);
+  /* Ambient Glow */
+  .glow {
+    position: fixed;
+    top: -20%; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+    z-index: -1; pointer-events: none;
+  }
+
+  /* NAV */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px; height: 64px;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 60px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    background: rgba(5, 5, 5, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
   }
-  .nav-brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px; letter-spacing: 3px;
-    text-transform: uppercase; color: white;
-    text-decoration: none;
-  }
-  .nav-brand span { color: var(--accent); }
-  .nav-links { display:flex; gap:32px; list-style:none; }
-  .nav-links a {
-    color: rgba(255,255,255,0.65);
-    text-decoration: none; font-size:12px;
-    font-weight:500; letter-spacing:1.5px;
-    text-transform:uppercase; transition:color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-cta {
-    background: var(--accent) !important;
-    color: var(--navy) !important;
-    padding: 8px 18px; border-radius:3px;
-    font-weight:600 !important;
-  }
-  .nav-cta:hover { background: var(--accent2) !important; }
 
-  /* ── HERO ── */
+  .logo { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); }
+  .logo-dot { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  
+  .status-badge {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12px; color: var(--green);
+    background: var(--green-soft); border: 1px solid rgba(63,185,80,0.2);
+    padding: 6px 12px; border-radius: 24px;
+  }
+  .status-badge::before {
+    content: ''; width: 6px; height: 6px; background: var(--green);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(63,185,80,0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(63,185,80,0); }
+    100% { box-shadow: 0 0 0 0 rgba(63,185,80,0); }
+  }
+
+  /* BUTTONS */
+  .btn {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    padding: 10px 24px; border-radius: 8px; text-decoration: none;
+    transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary { background: var(--text); color: var(--bg); border: 1px solid var(--text); }
+  .btn-primary:hover { background: transparent; color: var(--text); }
+  .btn-ghost { background: var(--surface); color: var(--text2); border: 1px solid var(--border); backdrop-filter: blur(8px); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--border-hover); background: var(--surface-hover); }
+
+  /* HERO */
   .hero {
     min-height: 100vh;
-    background: linear-gradient(150deg, #060f1e 0%, #0b1f3a 50%, #102845 100%);
-    display:flex; align-items:center;
-    padding: 120px 60px 80px;
-    position:relative; overflow:hidden;
-  }
-  .hero-glow {
-    position:absolute; top:-150px; right:-100px;
-    width:600px; height:600px;
-    background: radial-gradient(circle, rgba(26,95,168,0.22) 0%, transparent 65%);
-    pointer-events:none;
-  }
-  .hero-glow2 {
-    position:absolute; bottom:-80px; left:5%;
-    width:400px; height:400px;
-    background: radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 65%);
-    pointer-events:none;
-  }
-  .hero-grid {
-    position:absolute; inset:0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events:none;
-  }
-  .hero-inner { position:relative; z-index:1; max-width:760px; }
-
-  .hero-eye {
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:11px; font-weight:600;
-    letter-spacing:3px; text-transform:uppercase;
-    color: var(--accent); margin-bottom:20px;
-  }
-  .hero-eye::before { content:''; width:28px; height:2px; background:var(--accent); }
-
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size:80px; font-weight:700; color:white;
-    letter-spacing:8px; text-transform:uppercase;
-    line-height:1; margin-bottom:8px;
-  }
-  .hero-name span {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-byline {
-    font-size:13px; font-weight:300;
-    color:rgba(255,255,255,0.38);
-    letter-spacing:2px; text-transform:uppercase;
-    margin-bottom:24px;
-  }
-  .hero-tagline {
-    font-size:19px; font-weight:300;
-    color:rgba(255,255,255,0.72);
-    line-height:1.65; max-width:500px;
-    margin-bottom:44px;
-  }
-  .hero-tagline strong { color:white; font-weight:500; }
-
-  .hero-stats {
-    display:flex; margin-bottom:48px;
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:6px; overflow:hidden; max-width:560px;
-  }
-  .hstat {
-    flex:1; padding:18px 20px; text-align:center;
-    border-right:1px solid rgba(255,255,255,0.08);
-    background:rgba(255,255,255,0.03);
-    transition:background 0.2s;
-  }
-  .hstat:last-child { border-right:none; }
-  .hstat:hover { background:rgba(255,255,255,0.06); }
-  .hstat-num {
-    font-family:'Playfair Display',serif;
-    font-size:28px; color:var(--accent);
-    line-height:1; margin-bottom:4px;
-  }
-  .hstat-lbl {
-    font-size:10px; font-weight:500;
-    color:rgba(255,255,255,0.42);
-    letter-spacing:1.5px; text-transform:uppercase;
+    display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center;
+    padding: 120px 48px 80px; gap: 80px; max-width: 1200px; margin: 0 auto;
   }
 
-  .hero-btns { display:flex; gap:12px; }
-  .btn {
-    display:inline-flex; align-items:center;
-    padding:13px 28px; border-radius:3px;
-    font-size:13px; font-weight:600;
-    letter-spacing:0.5px; text-decoration:none;
-    transition:all 0.2s;
-  }
-  .btn-gold { background:var(--accent); color:var(--navy); }
-  .btn-gold:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 6px 20px rgba(232,160,32,0.3); }
-  .btn-ghost { border:1px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.85); }
-  .btn-ghost:hover { border-color:white; color:white; transform:translateY(-2px); }
-
-  /* ── STRIP ── */
-  .strip {
-    background:var(--navy);
-    display:grid; grid-template-columns:repeat(4,1fr);
-    gap:1px; background-color:rgba(255,255,255,0.08);
-  }
-  .strip-item {
-    background:var(--navy); padding:36px 30px;
-    border-top:3px solid transparent; transition:all 0.25s;
-  }
-  .strip-item:hover { border-top-color:var(--accent); background:#0f2845; }
-  .strip-icon { font-size:26px; margin-bottom:12px; }
-  .strip-title { font-size:14px; font-weight:600; color:white; margin-bottom:7px; }
-  .strip-desc { font-size:13px; color:rgba(255,255,255,0.48); font-weight:300; line-height:1.6; }
-
-  /* ── SHARED ── */
-  .sec { padding:96px 60px; }
-  .sec-white { background:white; }
-  .sec-gray  { background:var(--bg); }
-
-  .sec-label {
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:11px; font-weight:600;
-    letter-spacing:3px; text-transform:uppercase;
-    color:var(--blue); margin-bottom:12px;
-  }
-  .sec-label::before { content:''; width:20px; height:2px; background:var(--blue); }
-  .sec-title {
-    font-family:'Playfair Display',serif;
-    font-size:38px; color:var(--navy);
-    letter-spacing:-0.5px; line-height:1.15; margin-bottom:14px;
-  }
-  .sec-sub {
-    font-size:15px; font-weight:300; color:var(--muted);
-    line-height:1.75; max-width:560px; margin-bottom:56px;
+  .eyebrow {
+    display: inline-block; font-family: var(--mono); font-size: 12px;
+    color: var(--accent); background: var(--accent-glow);
+    border: 1px solid rgba(88,166,255,0.2); padding: 4px 12px;
+    border-radius: 20px; margin-bottom: 24px;
   }
 
-  /* ── ABOUT ── */
-  .about-grid {
-    display:grid; grid-template-columns:1.1fr 0.9fr;
-    gap:72px; align-items:start;
-  }
-  .about-text p {
-    font-size:15px; font-weight:300;
-    color:#3a4a5a; line-height:1.9; margin-bottom:20px;
-  }
-  .about-text p:first-child {
-    font-size:16px;
-    color: var(--navy);
-    font-weight:400;
-    font-style: italic;
-    line-height: 2;
-  }
-  .about-text p:nth-child(2),
-  .about-text p:nth-child(3) {
-    font-size:15px;
-    color:#2a3a4a;
-    line-height:2;
-  }
-  .about-note {
-    background:linear-gradient(135deg,#eef5fc,#f5f9ff);
-    border-left:3px solid var(--blue);
-    padding:16px 20px; border-radius:0 6px 6px 0;
-    font-size:13.5px; font-style:italic;
-    color:var(--navy); line-height:1.75;
-  }
-  .tl-heading {
-    font-size:11px; font-weight:600;
-    letter-spacing:2.5px; text-transform:uppercase;
-    color:var(--blue); margin-bottom:26px;
-  }
-  .timeline { position:relative; padding-left:20px; }
-  .timeline::before {
-    content:''; position:absolute; left:0; top:8px; bottom:0; width:2px;
-    background:linear-gradient(to bottom, var(--blue), var(--pale), transparent);
-  }
-  .tl-item { position:relative; margin-bottom:28px; padding-left:18px; }
-  .tl-item::before {
-    content:''; position:absolute; left:-24px; top:6px;
-    width:10px; height:10px; border-radius:50%;
-    background:var(--blue); border:2px solid white;
-    box-shadow:0 0 0 2px var(--blue);
-  }
-  .tl-item.now::before { background:var(--accent); box-shadow:0 0 0 2px var(--accent); }
-  .tl-date {
-    font-size:10px; font-weight:700; letter-spacing:2px;
-    text-transform:uppercase; color:var(--blue); margin-bottom:3px;
-  }
-  .tl-item.now .tl-date { color:var(--accent); }
-  .tl-role { font-size:15px; font-weight:600; color:var(--navy); margin-bottom:2px; }
-  .tl-co { font-size:13px; font-weight:300; color:var(--muted); }
+  h1 { font-family: var(--serif); font-size: clamp(48px, 6vw, 76px); font-weight: 400; line-height: 1.05; letter-spacing: -1px; margin-bottom: 24px; }
+  h1 em { font-style: italic; color: var(--text2); }
 
-  /* ── SOLFEZZ LENS ── */
-  .lens-intro {
-    font-size:16px; font-weight:300; font-style:italic;
-    color:#2a3a4a; line-height:2; max-width:680px;
-    margin-bottom:64px;
-    border-left:3px solid var(--accent);
-    padding-left:24px;
-  }
-  .lens-grid { display:flex; flex-direction:column; gap:40px; }
+  .hero-desc { font-size: 18px; color: var(--text2); line-height: 1.6; margin-bottom: 40px; max-width: 500px; }
+  .hero-desc strong { color: var(--text); font-weight: 400; }
 
-  .lens-card {
-    border-radius:10px; overflow:hidden;
-    box-shadow:0 4px 24px rgba(11,31,58,0.08);
-    display:grid; grid-template-columns:1fr 1fr;
-  }
+  .hero-actions { display: flex; gap: 16px; margin-bottom: 56px; }
 
-  .lens-direction {
-    padding:44px 48px;
-    display:flex; flex-direction:column; justify-content:space-between;
+  /* TERMINAL */
+  .terminal {
+    background: var(--surface); backdrop-filter: blur(16px);
+    border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4); overflow: hidden;
   }
-  .lens-direction.abstract {
-    background:linear-gradient(145deg, #0b1f3a, #122d50);
-    color:white;
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.3);
   }
-  .lens-direction.alive {
-    background:linear-gradient(145deg, #1a3a0b, #2a5012);
-    color:white;
-  }
-  .lens-direction.both-left {
-    background:linear-gradient(145deg, #0b1f3a, #122d50);
-    color:white;
-  }
-  .lens-direction.both-right {
-    background:linear-gradient(145deg, #1a3a0b, #2a5012);
-    color:white;
-  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+  .terminal-title { font-family: var(--mono); font-size: 12px; color: var(--text3); margin-left: 8px; }
+  .terminal-body { padding: 24px; font-family: var(--mono); font-size: 13px; line-height: 1.8; min-height: 280px; }
+  .cursor { display: inline-block; width: 8px; height: 15px; background: var(--accent); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px;}
 
-  .lens-dir-tag {
-    font-size:10px; font-weight:700; letter-spacing:3px;
-    text-transform:uppercase; margin-bottom:16px;
-    display:inline-flex; align-items:center; gap:8px;
-  }
-  .lens-direction.abstract .lens-dir-tag { color:var(--accent); }
-  .lens-direction.alive .lens-dir-tag { color:#7ed96a; }
-  .lens-direction.both-left .lens-dir-tag { color:var(--accent); }
-  .lens-direction.both-right .lens-dir-tag { color:#7ed96a; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-  .lens-dir-tag::before {
-    content:''; width:20px; height:2px;
-  }
-  .lens-direction.abstract .lens-dir-tag::before { background:var(--accent); }
-  .lens-direction.alive .lens-dir-tag::before { background:#7ed96a; }
-  .lens-direction.both-left .lens-dir-tag::before { background:var(--accent); }
-  .lens-direction.both-right .lens-dir-tag::before { background:#7ed96a; }
+  /* SECTION LAYOUTS */
+  section { max-width: 1200px; margin: 0 auto; padding: 120px 48px; border-top: 1px solid var(--border); }
+  .section-h { font-family: var(--serif); font-size: clamp(32px, 4vw, 48px); font-weight: 400; margin-bottom: 48px; }
 
-  .lens-dir-title {
-    font-family:'Playfair Display',serif;
-    font-size:22px; color:white; line-height:1.3;
-    margin-bottom:16px;
+  /* BENTO WORK GRID */
+  .work-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
   }
-  .lens-dir-body {
-    font-size:14px; font-weight:300; line-height:1.85;
-    color:rgba(255,255,255,0.72); margin-bottom:24px;
-    flex:1;
+  .work-card {
+    background: var(--surface); border: 1px solid var(--border); backdrop-filter: blur(8px);
+    border-radius: 16px; padding: 32px; transition: all 0.3s ease;
+    display: flex; flex-direction: column;
   }
-  .lens-quote {
-    font-size:13px; font-style:italic;
-    color:rgba(255,255,255,0.5);
-    border-top:1px solid rgba(255,255,255,0.12);
-    padding-top:16px; line-height:1.7;
-  }
+  .work-card:hover { transform: translateY(-4px); border-color: var(--border-hover); background: var(--surface-hover); }
+  
+  /* Make the first card span 2 columns to break monotony */
+  .work-card:nth-child(1) { grid-column: span 2; }
+  
+  .work-num { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 16px; }
+  .work-title { font-size: 20px; font-weight: 500; margin-bottom: 12px; color: var(--text); }
+  .work-desc { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: auto; }
+  
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tag { font-family: var(--mono); font-size: 11px; color: var(--accent); background: var(--accent-glow); padding: 4px 10px; border-radius: 6px; }
 
-  .lens-center {
-    padding:44px 48px;
-    background:white;
-    display:flex; flex-direction:column; justify-content:center;
-    grid-column:span 1;
-  }
-  .lens-center-tag {
-    font-size:10px; font-weight:700; letter-spacing:3px;
-    text-transform:uppercase; color:var(--blue);
-    margin-bottom:12px; display:flex; align-items:center; gap:8px;
-  }
-  .lens-center-tag::before { content:''; width:20px; height:2px; background:var(--blue); }
-  .lens-project-name {
-    font-family:'Playfair Display',serif;
-    font-size:28px; color:var(--navy);
-    line-height:1.2; margin-bottom:8px;
-  }
-  .lens-project-sub {
-    font-size:13px; color:var(--muted);
-    font-weight:300; margin-bottom:20px;
-  }
-  .lens-arrow {
-    font-size:32px; color:var(--accent);
-    margin-bottom:16px; line-height:1;
-  }
-  .lens-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+  /* CATEGORIZED STACK */
+  .stack-container { display: flex; flex-direction: column; gap: 24px; }
+  .stack-category { background: var(--surface); border: 1px solid var(--border); padding: 24px 32px; border-radius: 12px; }
+  .stack-cat-title { font-family: var(--mono); font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .stack-items { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stack-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 14px; color: var(--text); transition: border 0.2s; }
+  .stack-item:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* 3-column layout for the dual-direction card */
-  .lens-card.dual { grid-template-columns:1fr 0.8fr 1fr; }
+  /* CONTACT / PROJECT PANELS */
+  .panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .contact-box { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 16px; }
+  
+  .contact-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 16px 0; }
+  .contact-row:last-child { border-bottom: none; }
+  .c-key { font-family: var(--mono); font-size: 13px; color: var(--text2); }
+  .c-val { font-size: 14px; color: var(--text); font-weight: 500; }
+  
+  /* FOOTER */
+  footer { max-width: 1200px; margin: 0 auto; padding: 32px 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--text3); }
 
-  /* ── WORK CARDS ── */
-  .cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-  .card {
-    background:white; border-radius:8px; padding:32px 34px;
-    box-shadow:0 2px 14px rgba(11,31,58,0.06);
-    position:relative; overflow:hidden; transition:all 0.25s;
-  }
-  .card::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:3px;
-    background:linear-gradient(90deg, var(--blue), #4a9de8);
-    transform:scaleX(0); transform-origin:left; transition:transform 0.3s;
-  }
-  .card:hover { box-shadow:0 10px 36px rgba(11,31,58,0.12); transform:translateY(-3px); }
-  .card:hover::before { transform:scaleX(1); }
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-  .card-feat {
-    grid-column:span 2;
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:40px; align-items:start;
-    background:linear-gradient(135deg,#0b1f3a,#122d50);
-  }
-  .card-feat::before { background:linear-gradient(90deg,var(--accent),var(--accent2)); }
-  .card-feat .card-lbl { color:var(--accent); }
-  .card-feat .card-title { color:white; }
-  .card-feat .card-desc { color:rgba(255,255,255,0.62); }
-  .card-feat .tech-tag { background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); border:1px solid rgba(255,255,255,0.15); }
-  .card-feat .imp-box { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); }
-  .card-feat .imp-num { color:var(--accent); }
-  .card-feat .imp-lbl { color:rgba(255,255,255,0.42); }
-
-  .card-icon {
-    width:46px; height:46px; border-radius:10px;
-    background:var(--pale); display:flex; align-items:center;
-    justify-content:center; font-size:20px; margin-bottom:16px;
-  }
-  .card-feat .card-icon { background:rgba(255,255,255,0.1); }
-  .card-lbl { font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue); margin-bottom:7px; }
-  .card-title { font-family:'Playfair Display',serif; font-size:21px; color:var(--navy); line-height:1.2; margin-bottom:12px; }
-  .card-desc { font-size:13.5px; font-weight:300; color:#4a5a6a; line-height:1.75; margin-bottom:18px; }
-  .imp-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
-  .imp-box { background:#f0f6ff; border:1px solid #cce0f5; border-radius:6px; padding:10px 14px; text-align:center; }
-  .imp-num { display:block; font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--navy); line-height:1; margin-bottom:3px; }
-  .imp-lbl { font-size:9px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
-  .tech-tags { display:flex; flex-wrap:wrap; gap:6px; }
-  .tech-tag { background:#eef4fb; color:var(--blue); font-size:11px; font-weight:500; padding:3px 10px; border-radius:3px; }
-
-  /* ── SKILLS ── */
-  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  .skill-card { border:1px solid #e4ecf4; border-radius:8px; padding:26px 28px; transition:all 0.2s; }
-  .skill-card:hover { border-color:var(--blue); box-shadow:0 4px 18px rgba(26,95,168,0.08); }
-  .skill-icon { font-size:24px; margin-bottom:10px; }
-  .skill-name { font-size:13.5px; font-weight:600; color:var(--navy); margin-bottom:12px; }
-  .skill-pills { display:flex; flex-wrap:wrap; gap:6px; }
-  .pill { font-size:11.5px; font-weight:400; padding:4px 10px; border-radius:4px; background:#f0f5fb; color:#2a4060; }
-  .pill.new { background:#fff4e5; color:#b35800; border:1px dashed var(--accent); }
-  .skills-legend { margin-top:28px; display:flex; align-items:center; gap:12px; font-size:13px; color:var(--muted); font-weight:300; }
-  .skills-legend::before { content:''; display:inline-block; width:14px; height:14px; border-radius:3px; background:#fff4e5; border:1px dashed var(--accent); flex-shrink:0; }
-
-  /* ── EXPERIENCE ── */
-  .exp-list { display:flex; flex-direction:column; gap:28px; }
-  .exp-card { background:white; border-radius:8px; padding:34px 38px; box-shadow:0 2px 12px rgba(11,31,58,0.05); border-left:4px solid var(--blue); }
-  .exp-card.early { border-left-color:var(--pale); }
-  .exp-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
-  .exp-co { font-family:'Playfair Display',serif; font-size:18px; color:var(--navy); }
-  .exp-dates { font-size:12px; color:var(--muted); font-style:italic; margin-top:4px; white-space:nowrap; }
-  .exp-role { font-size:13.5px; font-weight:600; color:var(--blue); margin-bottom:2px; }
-  .exp-sub { font-size:12.5px; color:var(--muted); font-weight:300; font-style:italic; margin-bottom:10px; }
-  .exp-intro { font-size:13.5px; font-style:italic; color:#556; border-left:2px solid var(--pale); padding-left:12px; margin-bottom:14px; line-height:1.7; }
-  .exp-bullets { list-style:none; }
-  .exp-bullets li { font-size:13.5px; font-weight:300; color:#3a4a5a; padding-left:16px; position:relative; margin-bottom:8px; line-height:1.75; }
-  .exp-bullets li::before { content:'–'; position:absolute; left:0; color:var(--blue); font-weight:600; }
-
-  /* ── CONTACT ── */
-  #contact { background:linear-gradient(145deg,#070f1e,#0b1f3a); padding:96px 60px; }
-  #contact .sec-label { color:var(--accent); }
-  #contact .sec-label::before { background:var(--accent); }
-  #contact .sec-title { color:white; }
-  #contact .sec-sub { color:rgba(255,255,255,0.55); margin-bottom:0; }
-
-  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-top:52px; align-items:start; }
-  .contact-blurb { font-size:15px; font-weight:300; color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:24px; }
-  .contact-box { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:18px 22px; font-size:13.5px; font-style:italic; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:28px; }
-  .direct-links { display:flex; flex-direction:column; gap:12px; }
-  .direct-link { display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.82); text-decoration:none; padding:12px 18px; border-radius:4px; font-size:14px; transition:all 0.2s; }
-  .direct-link:hover { background:rgba(255,255,255,0.13); border-color:rgba(255,255,255,0.3); color:white; }
-
-  .contact-form { display:flex; flex-direction:column; gap:14px; }
-  .frow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .fg { display:flex; flex-direction:column; gap:6px; }
-  .fg label { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.45); }
-  .fg input, .fg textarea, .fg select { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:4px; padding:11px 14px; color:white; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:300; transition:border-color 0.2s; outline:none; width:100%; }
-  .fg input::placeholder, .fg textarea::placeholder { color:rgba(255,255,255,0.22); }
-  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color:var(--accent); background:rgba(255,255,255,0.1); }
-  .fg select option { background:#0b1f3a; }
-  .fg textarea { resize:vertical; min-height:110px; line-height:1.6; }
-  .form-btn { background:var(--accent); color:var(--navy); border:none; padding:14px 28px; border-radius:3px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; margin-top:4px; }
-  .form-btn:hover { background:var(--accent2); transform:translateY(-1px); }
-  .form-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-  .form-ok { display:none; background:rgba(46,180,100,0.15); border:1px solid rgba(46,180,100,0.35); border-radius:5px; padding:16px; text-align:center; color:#6effa8; font-size:14px; line-height:1.6; }
-  .form-err { display:none; background:rgba(220,53,69,0.15); border:1px solid rgba(220,53,69,0.35); border-radius:5px; padding:14px; text-align:center; color:#ff8a95; font-size:13.5px; }
-
-  /* ── FOOTER ── */
-  footer { background:#060d18; text-align:center; padding:32px 20px; }
-  .footer-logo { font-family:'Playfair Display',serif; font-size:20px; letter-spacing:3px; text-transform:uppercase; color:white; margin-bottom:8px; }
-  .footer-logo span { color:var(--accent); }
-  .footer-copy { font-size:12px; color:rgba(255,255,255,0.28); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width:900px) {
-    nav { padding:0 24px; }
-    .nav-links { display:none; }
-    .hero { padding:100px 24px 60px; }
-    .hero-name { font-size:52px; letter-spacing:4px; }
-    .strip { grid-template-columns:1fr 1fr; }
-    .sec { padding:64px 24px; }
-    .about-grid, .contact-grid { grid-template-columns:1fr; gap:40px; }
-    .lens-card, .lens-card.dual { grid-template-columns:1fr; }
-    .cards-grid { grid-template-columns:1fr; }
-    .card-feat { grid-column:span 1; grid-template-columns:1fr; }
-    .skills-grid { grid-template-columns:1fr 1fr; }
-    .frow { grid-template-columns:1fr; }
-  }
-  @media (max-width:560px) {
-    .hero-name { font-size:38px; letter-spacing:2px; }
-    .hero-stats { flex-wrap:wrap; }
-    .strip { grid-template-columns:1fr; }
-    .skills-grid { grid-template-columns:1fr; }
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 0 24px; } .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 40px; }
+    section { padding: 80px 24px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card:nth-child(1) { grid-column: span 1; }
+    .panel-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#home" class="nav-brand">Sol<span>fezz</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#lens">Philosophy</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
-  </ul>
-</nav>
+<div class="glow"></div>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-eye">Full Stack Developer &nbsp;·&nbsp; Riverside County, CA</div>
-    <h1 class="hero-name">Sol<span>fezz</span></h1>
-    <p class="hero-byline">A Dev Studio by Van Ngo</p>
-    <p class="hero-tagline">
-      <strong>Abstract the complex.</strong> Animate the rigid.<br>
-      Technology built in both directions — distilling chaos into clarity,
-      and giving rigid systems a reason to exist beyond their function.
-    </p>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-num">10+</div><div class="hstat-lbl">Years Experience</div></div>
-      <div class="hstat"><div class="hstat-num">10×</div><div class="hstat-lbl">Revenue Growth</div></div>
-      <div class="hstat"><div class="hstat-num">650+</div><div class="hstat-lbl">Clients Supported</div></div>
-      <div class="hstat"><div class="hstat-num">3×</div><div class="hstat-lbl">Productivity Gain</div></div>
-    </div>
-    <div class="hero-btns">
-      <a href="#work" class="btn btn-gold">View My Work</a>
-      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-    </div>
+<header>
+  <div class="logo">SOLFEZZ<span class="logo-dot">  </span>Dev Studio by Van Ngo</div>
+  <nav class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <div class="status-badge">Available</div>
+    <a href="https://github.com/solfezz" target="_blank" class="btn btn-ghost" style="padding: 6px 12px; font-size: 12px;">GitHub</a>
   </div>
-</section>
+</header>
 
-<!-- STRIP -->
-<div class="strip">
-  <div class="strip-item">
-    <div class="strip-icon">⟵</div>
-    <div class="strip-title">Abstract → Universal</div>
-    <div class="strip-desc">Taking the chaotic and overwhelming and distilling it into clean, scalable architecture anyone can build on.</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-icon">⟶</div>
-    <div class="strip-title">Rigid → Alive</div>
-    <div class="strip-desc">Taking stiff, mechanical systems and giving them rhythm, insight, and a reason to exist beyond their function.</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-icon">🏭</div>
-    <div class="strip-title">ERP & Business Systems</div>
-    <div class="strip-desc">Custom enterprise platforms built to handle your entire operation end-to-end.</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-icon">🔗</div>
-    <div class="strip-title">E-Commerce & API Integrations</div>
-    <div class="strip-desc">eBay, Shopify, PayPal, EDI X12, and cloud services connected seamlessly into one flow.</div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about" class="sec sec-white">
-  <div class="sec-label">About Solfezz</div>
-  <h2 class="sec-title">From Junior Dev to Lead Engineer</h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>Solfège gave musicians a universal language to navigate between the abstract world of music theory and the deeply human act of making sound. It worked in both directions — and that was the point.</p>
-      <p>Solfezz borrows that same philosophy and brings it into technology. The work is always bidirectional. In one direction — taking the chaotic, the overwhelming, the abstract, and distilling it into clean architecture that anyone can build on. In the other — taking rigid, mechanical systems and giving them rhythm, insight, and a reason to exist beyond their function.</p>
-      <p>That tension between abstraction and structure, between clarity and soul, is where the best work lives. It is not just how we build. It is how we think.</p>
-      <p style="border-top:1px solid #e4ecf4; padding-top:20px; margin-top:4px;">
-        Solfezz is the dev brand, a full stack developer based in Riverside County, CA with over 10 years of experience building enterprise systems that contributed directly to growing a company from <strong>$2–3M to nearly $30M in annual revenue</strong>. Prior experience includes supporting <strong>650+ automotive dealership websites</strong> on a C# .NET platform.
+<main>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Full Stack Engineer · Systems Architect</div>
+      <h1>Building systems<br>that help businesses<br><em>actually scale.</em></h1>
+      <p class="hero-desc">
+        10 years engineering production e-commerce and ERP infrastructure — not tutorials, not side projects. <strong>Real operational systems</strong> that scaled a business from $2M to $30M in revenue.
       </p>
-      <div class="about-note">Most work was built for proprietary internal systems and is not publicly available. This portfolio describes the systems built, problems solved, and outcomes delivered. Work samples and references available upon request.</div>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">View my work</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
     </div>
-    <div>
-      <div class="tl-heading">Career Timeline</div>
-      <div class="timeline">
-        <div class="tl-item now">
-          <div class="tl-date">2025 – Present</div>
-          <div class="tl-role">Transitioning to C# .NET & Mobile</div>
-          <div class="tl-co">Exploring Kotlin Multiplatform & .NET MAUI</div>
+
+    <div class="hero-visual">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          <div class="terminal-title">engineer.json</div>
         </div>
-        <div class="tl-item">
-          <div class="tl-date">Multi-Year Tenure</div>
-          <div class="tl-role">Lead Full Stack Developer</div>
-          <div class="tl-co">Ganex · Riverside County, CA</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-date">Promoted From Within</div>
-          <div class="tl-role">Junior → Full Stack Developer</div>
-          <div class="tl-co">Ganex · Same organization</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-date">Career Start</div>
-          <div class="tl-role">Website Customer Service Technician</div>
-          <div class="tl-co">TK-Carsites · C# .NET Platform</div>
-        </div>
+        <div class="terminal-body" id="typewriter"></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- SOLFEZZ LENS -->
-<section id="lens" class="sec sec-white">
-  <div class="sec-label">The Solfezz Lens</div>
-  <h2 class="sec-title">Philosophy in Practice</h2>
-  <p class="lens-intro">
-    Every project moves in one of two directions — or both at once. Here are three that best
-    exemplify what Solfezz means in the real world: what the system was, what it became,
-    and which direction it moved in.
-  </p>
+  <section id="work">
+    <div class="eyebrow fade-up">Real Work</div>
+    <h2 class="section-h fade-up">What 10 years <em>actually looks like</em></h2>
+    
+    <div class="work-grid fade-up">
+      <article class="work-card">
+        <div class="work-num">01 / Flagship</div>
+        <h3 class="work-title">Custom Open-Source ERP System</h3>
+        <p class="work-desc">Built from scratch — manufacturing tracking, warehouse management, kit assembly with nested bundle support, order processing, and shipment tracking. Currently rebuilding 10 years of knowledge in public.</p>
+        <div class="tags">
+          <span class="tag">Laravel 11</span><span class="tag">Vue.js 3</span><span class="tag">MySQL</span><span class="tag">Tailwind</span>
+        </div>
+      </article>
 
-  <div class="lens-grid">
+      <article class="work-card">
+        <div class="work-num">02</div>
+        <h3 class="work-title">eBay Automation Suite</h3>
+        <p class="work-desc">Custom commerce platform that automated listing management and order processing. Reduced a 3-person fulfillment team to 1 operator.</p>
+        <div class="tags"><span class="tag">eBay API</span><span class="tag">PHP</span></div>
+      </article>
 
-    <!-- CARD 1: Abstract → Universal (ERP Migration) -->
-    <div class="lens-card">
-      <div class="lens-center">
-        <div class="lens-center-tag">Direction One</div>
-        <div class="lens-project-name">The ERP Migration</div>
-        <div class="lens-project-sub">Legacy PHP → Modular MVC Architecture</div>
-        <div class="lens-arrow">⟶</div>
-        <p style="font-size:14px; font-weight:300; color:#3a4a5a; line-height:1.85;">
-          A sprawling, organically grown codebase — years of logic tangled together with no
-          shared language, no structure, no way for anyone to see the whole picture. The chaos
-          was real. But so was the pattern hiding inside it.
-        </p>
-        <div class="lens-tags">
-          <span class="tech-tag">PHP</span><span class="tech-tag">Laravel</span>
-          <span class="tech-tag">CodeIgniter</span><span class="tech-tag">Modular MVC</span>
-        </div>
-      </div>
-      <div class="lens-direction abstract">
-        <div>
-          <div class="lens-dir-tag">Abstract → Universal</div>
-          <div class="lens-dir-title">Finding the pattern inside the chaos</div>
-          <div class="lens-dir-body">
-            The business had not changed. The problems had not changed. But the code had become
-            a language only its author could read — abstract in the worst sense. The work was
-            to look past the noise and find the underlying logic that could be generalized,
-            structured, and handed to anyone.<br><br>
-            The result was a modular MVC architecture that transformed accumulated complexity
-            into a system with a shared grammar. New modules could be built. Old ones could be
-            understood. The abstract became universal — and the company scaled 10x on top of it.
-          </div>
-        </div>
-        <div class="lens-quote">
-          "The code was not the problem. The lack of a shared language was.
-          Solfezz found the pattern inside the chaos and gave it a shape everyone could read."
-        </div>
-      </div>
+      <article class="work-card">
+        <div class="work-num">03</div>
+        <h3 class="work-title">EDI X12 Dropshipping</h3>
+        <p class="work-desc">Multi-partner platform with full EDI X12 integration across 3 suppliers, automating routing and inventory sync.</p>
+        <div class="tags"><span class="tag">EDI X12</span><span class="tag">REST</span></div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-num">04</div>
+        <h3 class="work-title">AI Customer Service</h3>
+        <p class="work-desc">GCP Speech-to-Text integrated with Gmail API to transcribe support calls and auto-generate response drafts.</p>
+        <div class="tags"><span class="tag">GCP</span><span class="tag">AI</span></div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-num">05</div>
+        <h3 class="work-title">Infra Migration</h3>
+        <p class="work-desc">Led legacy PHP to Laravel migration, jQuery to Vue, and shared hosting to AWS/DigitalOcean VPS architecture.</p>
+        <div class="tags"><span class="tag">AWS</span><span class="tag">Linux</span></div>
+      </article>
     </div>
+  </section>
 
-    <!-- CARD 2: Rigid → Alive (Hiring Assessment) -->
-    <div class="lens-card">
-      <div class="lens-direction alive">
-        <div>
-          <div class="lens-dir-tag">Rigid → Alive</div>
-          <div class="lens-dir-title">Giving a mechanical process a pulse</div>
-          <div class="lens-dir-body">
-            A warehouse hiring form is one of the most sterile objects in business. Fixed fields.
-            Binary outcomes. No signal beyond what someone writes about themselves. It is rigid
-            in every direction — and it tells you almost nothing about how a person actually thinks.<br><br>
-            The work was to take that concrete structure and breathe something into it. The result
-            was a Connect 4 game that revealed decision-making, pattern recognition, and
-            composure under pressure — things no form could ever surface. The goal was identical.
-            The experience became entirely different.
-          </div>
-        </div>
-        <div class="lens-quote">
-          "A hiring form tells you nothing. A game tells you everything.
-          Solfezz took the rigidity of recruitment and gave it a pulse."
+  <section id="stack">
+    <div class="eyebrow fade-up">Technical Arsenal</div>
+    <h2 class="section-h fade-up">Technologies I <em>work with</em></h2>
+    
+    <div class="stack-container fade-up">
+      <div class="stack-category">
+        <div class="stack-cat-title">Backend & Database</div>
+        <div class="stack-items">
+          <div class="stack-item">Laravel</div><div class="stack-item">PHP 8.3</div>
+          <div class="stack-item">MySQL</div><div class="stack-item">REST APIs</div>
+          <div class="stack-item">TypeScript</div>
+          <div class="stack-item">Python</div><div class="stack-item">AI LLMs</div>
         </div>
       </div>
-      <div class="lens-center">
-        <div class="lens-center-tag">Direction Two</div>
-        <div class="lens-project-name">The Hiring Assessment</div>
-        <div class="lens-project-sub">Warehouse Screening → Connect 4 Game</div>
-        <div class="lens-arrow">⟵</div>
-        <p style="font-size:14px; font-weight:300; color:#3a4a5a; line-height:1.85;">
-          A rigid HR screening process with a fixed outcome — turned into an interactive
-          game that revealed how candidates actually think. Same goal. Completely different
-          experience. Used to evaluate 50+ warehouse candidates.
-        </p>
-        <div class="lens-tags">
-          <span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span>
-          <span class="tech-tag">jQuery</span><span class="tech-tag">HTML/CSS</span>
+      <div class="stack-category">
+        <div class="stack-cat-title">Frontend</div>
+        <div class="stack-items">
+          <div class="stack-item">Vue.js 3</div><div class="stack-item">Inertia.js</div>
+          <div class="stack-item">JavaScript</div><div class="stack-item">Tailwind CSS</div>
+        </div>
+      </div>
+      <div class="stack-category">
+        <div class="stack-cat-title">Infrastructure & Integrations</div>
+        <div class="stack-items">
+          <div class="stack-item">AWS</div><div class="stack-item">DigitalOcean</div>
+          <div class="stack-item">Linux</div><div class="stack-item">EDI X12</div>
+          <div class="stack-item">Google Cloud</div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- CARD 3: BOTH DIRECTIONS (Voicemail Transcription) -->
-    <div class="lens-card dual">
-      <div class="lens-direction both-left">
-        <div>
-          <div class="lens-dir-tag">Abstract → Universal</div>
-          <div class="lens-dir-title">Sound became searchable structure</div>
-          <div class="lens-dir-body">
-            A voicemail is one of the most abstract inputs a business can receive — unstructured,
-            ephemeral, impossible to act on at scale. You cannot search it, assign it, track it,
-            or measure it. It exists and then disappears.<br><br>
-            Google Cloud Speech-to-Text distilled that raw audio into clean text that could be
-            logged, routed, assigned, and tracked inside a unified customer service system.
-            The abstract became universal — actionable by anyone, visible to everyone.
-          </div>
-        </div>
-        <div class="lens-quote">
-          "Sound became text. The ephemeral became a managed record.
-          The abstract was universalized in a single API call."
+  <section id="contact">
+    <div class="eyebrow fade-up">Next Steps</div>
+    <h2 class="section-h fade-up">Open to the <em>right opportunity</em></h2>
+    
+    <div class="panel-grid fade-up">
+      <div class="contact-box">
+        <p style="color: var(--text2); margin-bottom: 32px;">Available for senior full stack roles and contracts. Strongest in Laravel, Vue.js, and systems architecture.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="mailto:solfezz@proton.me" class="btn btn-primary">solfezz@proton.me</a>
+          <a href="https://linkedin.com/in/solfezz" target="_blank" class="btn btn-ghost">LinkedIn</a>
+          <a href="https://solfezz.hashnode.dev" target="_blank" class="btn btn-ghost">Blog</a>
         </div>
       </div>
 
-      <div class="lens-center" style="background:linear-gradient(160deg,#faf9f7,#f0f5fb); border-left:1px solid #e4ecf4; border-right:1px solid #e4ecf4;">
-        <div class="lens-center-tag" style="justify-content:center;">Both Directions</div>
-        <div class="lens-project-name" style="text-align:center; font-size:22px;">Voicemail Transcription Module</div>
-        <div class="lens-project-sub" style="text-align:center;">The purest expression of Solfezz</div>
-        <div style="text-align:center; font-size:28px; margin:20px 0; color:var(--accent);">⟷</div>
-        <p style="font-size:13.5px; font-weight:300; color:#3a4a5a; line-height:1.85; text-align:center; margin-bottom:20px;">
-          One module. One missed call. Two directions at once — the abstract universalized,
-          the rigid humanized. A missed moment transformed into a managed conversation.
-        </p>
-        <div class="lens-tags" style="justify-content:center;">
-          <span class="tech-tag">Google Cloud</span>
-          <span class="tech-tag">Gmail API</span>
-          <span class="tech-tag">PHP</span>
-          <span class="tech-tag">Vue.js</span>
-        </div>
-      </div>
-
-      <div class="lens-direction both-right">
-        <div>
-          <div class="lens-dir-tag">Rigid → Alive</div>
-          <div class="lens-dir-title">A missed call became a human moment</div>
-          <div class="lens-dir-body">
-            A missed phone call is one of the coldest, most transactional moments in customer
-            service. It has no context, no warmth, no path forward. The rigid process says:
-            call back when you can. That is all.<br><br>
-            The module transformed that moment into something a customer service agent could
-            read, understand, empathize with, and respond to thoughtfully. The mechanical act
-            of missing a call became an opportunity for genuine connection. The rigid became
-            alive — one transcribed message at a time.
-          </div>
-        </div>
-        <div class="lens-quote">
-          "A missed call became a managed conversation. The cold became warm.
-          The rigid was given soul — one transcribed message at a time."
-        </div>
+      <div class="contact-box">
+        <div class="contact-row"><span class="c-key">Status</span><span class="c-val" style="color: var(--green);">Accepting Offers</span></div>
+        <div class="contact-row"><span class="c-key">Full-time</span><span class="c-val">$120K–$160K+</span></div>
+        <div class="contact-row"><span class="c-key">Contract</span><span class="c-val">$75–$125 / hr</span></div>
+        <div class="contact-row"><span class="c-key">Location</span><span class="c-val">Riverside CA / Remote</span></div>
       </div>
     </div>
+  </section>
+</main>
 
-  </div>
-</section>
-
-<!-- WORK -->
-<section id="work" class="sec sec-gray">
-  <div class="sec-label">Solfezz Work</div>
-  <h2 class="sec-title">Systems Built</h2>
-  <p class="sec-sub">All projects were built for proprietary business use. Descriptions cover architecture, purpose, and outcomes delivered.</p>
-  <div class="cards-grid">
-
-    <div class="card card-feat">
-      <div>
-        <div class="card-icon">🏭</div>
-        <div class="card-lbl">Flagship · Enterprise Platform</div>
-        <h3 class="card-title">Custom Full-Scale ERP System</h3>
-        <p class="card-desc">Proposed and led the complete migration of a legacy spaghetti PHP codebase to a modular MVC architecture using CodeIgniter and later Laravel, with Vue.js on the frontend. Built the entire ERP from the ground up — serving as the operational backbone of a growing e-commerce business through 10x revenue growth.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">PHP</span><span class="tech-tag">Laravel</span><span class="tech-tag">CodeIgniter</span><span class="tech-tag">Vue.js</span><span class="tech-tag">MySQL</span><span class="tech-tag">Modular MVC</span>
-        </div>
-      </div>
-      <div>
-        <div class="imp-row">
-          <div class="imp-box"><span class="imp-num">10×</span><span class="imp-lbl">Revenue Growth</span></div>
-          <div class="imp-box"><span class="imp-num">6+</span><span class="imp-lbl">Core Modules</span></div>
-          <div class="imp-box"><span class="imp-num">$30M</span><span class="imp-lbl">Peak Revenue</span></div>
-        </div>
-        <p class="card-desc">The system covered the complete business pipeline: product R&amp;D and manufacturing tracking → warehouse inventory &amp; SKU management → eBay listing &amp; order processing → end-to-end shipment tracking → unified customer service &amp; task management across all departments.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">REST APIs</span><span class="tech-tag">jQuery</span><span class="tech-tag">DigitalOcean</span><span class="tech-tag">AWS CDN</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🛒</div>
-      <div class="card-lbl">E-Commerce Automation</div>
-      <h3 class="card-title">eBay Commerce Suite</h3>
-      <p class="card-desc">A custom eBay management module covering multi-account product listing, centralized customer messaging, and PayPal checkout order processing. Reduced listing staffing from 3 employees to 1.</p>
-      <div class="imp-row">
-        <div class="imp-box"><span class="imp-num">3×</span><span class="imp-lbl">Productivity</span></div>
-        <div class="imp-box"><span class="imp-num">−2</span><span class="imp-lbl">Staff Required</span></div>
-      </div>
-      <div class="tech-tags">
-        <span class="tech-tag">eBay Seller API</span><span class="tech-tag">PayPal API</span><span class="tech-tag">Laravel</span><span class="tech-tag">Vue.js</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📦</div>
-      <div class="card-lbl">Supply Chain Automation</div>
-      <h3 class="card-title">Automated Dropshipping Platform</h3>
-      <p class="card-desc">A near-fully automated Laravel platform managing 3 third-party dropship partners. Used EDI X12 standard for purchase order ingestion and processing, handling the complete order-to-delivery pipeline for a single operator.</p>
-      <div class="tech-tags">
-        <span class="tech-tag">Laravel</span><span class="tech-tag">EDI X12</span><span class="tech-tag">MySQL</span><span class="tech-tag">REST APIs</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎙️</div>
-      <div class="card-lbl">AI-Integrated Tool</div>
-      <h3 class="card-title">Customer Service & Voicemail Transcription</h3>
-      <p class="card-desc">Unified customer service module consolidating eBay inquiries and office phone calls. Integrated Google Cloud Speech-to-Text and Gmail API to automatically capture, transcribe, and route voicemail messages to agents.</p>
-      <div class="tech-tags">
-        <span class="tech-tag">Google Cloud</span><span class="tech-tag">Gmail API</span><span class="tech-tag">PHP</span><span class="tech-tag">Vue.js</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🏪</div>
-      <div class="card-lbl">Storefront Development</div>
-      <h3 class="card-title">Multi-Brand E-Commerce Storefronts</h3>
-      <p class="card-desc">Built and maintained branded product storefronts across multiple product lines. Initially developed on WooCommerce, then strategically migrated to Shopify for superior branding capabilities and storefront specialization.</p>
-      <div class="tech-tags">
-        <span class="tech-tag">Shopify</span><span class="tech-tag">WooCommerce</span><span class="tech-tag">JavaScript</span><span class="tech-tag">CSS</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎮</div>
-      <div class="card-lbl">HR Tech</div>
-      <h3 class="card-title">Gamified Hiring Assessment</h3>
-      <p class="card-desc">Built an interactive Connect 4 game as a pre-employment assessment tool to evaluate problem-solving skills of warehouse job candidates. Used to screen and evaluate 50+ applicants during the hiring process.</p>
-      <div class="tech-tags">
-        <span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span><span class="tech-tag">jQuery</span><span class="tech-tag">HTML/CSS</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills" class="sec sec-white">
-  <div class="sec-label">Technical Skills</div>
-  <h2 class="sec-title">What I Work With</h2>
-  <p class="sec-sub">Built over 10 years of hands-on enterprise development. Dashed orange tags are actively being learned.</p>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-icon">⚙️</div>
-      <div class="skill-name">Backend Development</div>
-      <div class="skill-pills">
-        <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">CodeIgniter</span><span class="pill">REST APIs</span><span class="pill">EDI X12</span><span class="pill">MVC Architecture</span><span class="pill new">C# .NET</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🎨</div>
-      <div class="skill-name">Frontend Development</div>
-      <div class="skill-pills">
-        <span class="pill">Vue.js</span><span class="pill">JavaScript</span><span class="pill">jQuery</span><span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill new">React</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🗄️</div>
-      <div class="skill-name">Database & Architecture</div>
-      <div class="skill-pills">
-        <span class="pill">MySQL</span><span class="pill">Relational Data Modeling</span><span class="pill">OOP</span><span class="pill">ERP System Design</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">☁️</div>
-      <div class="skill-name">Cloud & DevOps</div>
-      <div class="skill-pills">
-        <span class="pill">DigitalOcean VPS</span><span class="pill">AWS CloudFront</span><span class="pill">Google Cloud</span><span class="pill">Linux Server Mgmt</span><span class="pill">cPanel</span><span class="pill new">AWS EC2/S3</span><span class="pill new">Docker</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🛒</div>
-      <div class="skill-name">E-Commerce & APIs</div>
-      <div class="skill-pills">
-        <span class="pill">eBay Seller API</span><span class="pill">PayPal API</span><span class="pill">Shopify</span><span class="pill">WooCommerce</span><span class="pill">Gmail API</span><span class="pill">Google Cloud STT</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">📱</div>
-      <div class="skill-name">Currently Transitioning Into</div>
-      <div class="skill-pills">
-        <span class="pill new">C# .NET</span><span class="pill new">Kotlin Multiplatform</span><span class="pill new">.NET MAUI</span><span class="pill new">GitHub Copilot</span>
-      </div>
-    </div>
-  </div>
-  <div class="skills-legend">Dashed border = actively learning or exploring</div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience" class="sec sec-gray">
-  <div class="sec-label">Work History</div>
-  <h2 class="sec-title">Professional Experience</h2>
-  <p class="sec-sub">A decade of building, leading, and delivering real systems with real business impact.</p>
-  <div class="exp-list">
-
-    <div class="exp-card">
-      <div class="exp-head">
-        <div>
-          <div class="exp-co">Ganex</div>
-          <div class="exp-role">Full Stack Developer</div>
-          <div class="exp-sub">Promoted from Junior Developer &nbsp;·&nbsp; Los Angeles County, CA</div>
-        </div>
-        <div class="exp-dates">2013 – 2023</div>
-      </div>
-      <div class="exp-intro">Grew from Junior Developer to Lead Full Stack Developer, architecting and building the company's entire technology infrastructure. Contributed directly to scaling annual revenue from $2–3M to nearly $30M.</div>
-      <ul class="exp-bullets">
-        <li>Proposed and led migration of a legacy PHP codebase to a <strong>modular MVC architecture</strong> using CodeIgniter and later Laravel, establishing the scalable foundation that supported 10x revenue growth</li>
-        <li>Architected the frontend evolution from jQuery to <strong>Vue.js</strong>, evaluating React and Angular before selecting Vue.js for its seamless integration with both backends</li>
-        <li>Designed and built a <strong>full-scale custom ERP platform</strong> covering manufacturing, warehouse inventory, SKU management, order processing, and end-to-end shipment tracking</li>
-        <li>Developed a custom <strong>eBay commerce suite</strong> with multi-account listing, customer messaging, and PayPal integration — reducing listing staff from 3 to 1 (<strong>3× productivity gain</strong>)</li>
-        <li>Engineered a customer service module using <strong>Google Cloud Speech-to-Text</strong> and Gmail API to automatically transcribe and route voicemail messages to agents</li>
-        <li>Built a near-fully automated <strong>Laravel dropshipping platform</strong> for 3 third-party partners using EDI X12 purchase order processing</li>
-        <li>Developed multi-brand storefronts on WooCommerce and <strong>Shopify</strong>, and managed infrastructure migration from HostGator to DigitalOcean VPS with AWS CDN integration</li>
-      </ul>
-    </div>
-
-    <div class="exp-card early">
-      <div class="exp-head">
-        <div>
-          <div class="exp-co">TK-Carsites</div>
-          <div class="exp-role">Website Customer Service Technician</div>
-          <div class="exp-sub">Orange County, CA</div>
-        </div>
-        <div class="exp-dates">2009 – 2013</div>
-      </div>
-      <div class="exp-intro">Provided technical support and front-end website management for 650+ automotive dealership clients on a C# .NET platform, balancing real-time inbound support with a continuous queue of scheduled website update tasks.</div>
-      <ul class="exp-bullets">
-        <li>Served as primary technical contact for <strong>650+ car dealership clients</strong>, resolving website issues and managing content updates across a large-scale portfolio</li>
-        <li>Executed front-end updates using <strong>HTML, CSS, JavaScript, and jQuery</strong> across hundreds of active dealership websites</li>
-        <li>Collaborated with senior backend developers on escalated issues, bridging client needs with the <strong>C# .NET platform</strong> backend</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="sec-label">Get In Touch</div>
-  <h2 class="sec-title">Work With Solfezz</h2>
-  <p class="sec-sub">Open to full stack and software developer roles, freelance projects, and local opportunities in Riverside County, CA. Remote work welcome.</p>
-
-  <div class="contact-grid">
-    <div>
-      <p class="contact-blurb">If you have a system that needs clarity, a process that needs soul, or a role that needs someone who thinks in both directions — let's talk.</p>
-      <div class="contact-box">All professional work was developed on proprietary internal systems and is not publicly available. Happy to walk through experience, architecture decisions, and outcomes in detail. Work samples and references available upon request.</div>
-      <div class="direct-links">
-        <!--<a href="/cdn-cgi/l/email-protection#590220362c2b193c34383035773a363404" class="direct-link">✉️ &nbsp;[<span class="__cf_email__" data-cfemail="e990869c9ba98c84888085c78a8684">[email&#160;protected]</span>]</a>-->
-        <!--<a href="tel:[your-phone]" class="direct-link">📞 &nbsp;[Your Phone Number]</a>-->
-        <a href="https://www.linkedin.com/in/solfezz-d-b220623b4/" class="direct-link" target="_blank">💼 &nbsp;LinkedIn</a>
-        <a href="https://github.com/Solfezz" class="direct-link" target="_blank">💼 &nbsp;GitHub</a>
-      </div>
-    </div>
-    <div>
-      <!--
-        FORMSPREE SETUP (2 minutes):
-        1. Go to https://formspree.io — sign up free
-        2. Create a new form, copy your Form ID (e.g. xpzgkwqr)
-        3. Replace YOUR_FORM_ID below with your actual ID
-      -->
-      <form class="contact-form" id="contactForm" action="https://formspree.io/f/mdaljokw" method="POST">
-        <div class="frow">
-          <div class="fg"><label>Your Name</label><input type="text" name="name" placeholder="Jane Smith" required></div>
-          <div class="fg"><label>Email Address</label><input type="email" name="email" placeholder="jane@company.com" required></div>
-        </div>
-        <div class="fg"><label>Company (Optional)</label><input type="text" name="company" placeholder="Company or organization"></div>
-        <div class="fg">
-          <label>Type of Opportunity</label>
-          <select name="opportunity">
-            <option value="" disabled selected>Select one...</option>
-            <option>Full Stack Developer Role</option>
-            <option>C# .NET Developer Role</option>
-            <option>Mobile Developer Role</option>
-            <option>Contract / Freelance Project</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell me about the role or project..." required></textarea></div>
-        <input type="text" name="_gotcha" style="display:none">
-        <button type="submit" class="form-btn" id="submitBtn">Send Message →</button>
-        <div class="form-ok" id="formOk">✅ &nbsp;Message sent! I'll get back to you within 1–2 business days.</div>
-        <div class="form-err" id="formErr">⚠️ &nbsp;Something went wrong. Please try again or email directly.</div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Sol<span>fezz</span></div>
-  <div class="footer-copy">© 2026 Solfezz &nbsp;·&nbsp; Full Stack Developer &nbsp;·&nbsp; Riverside County, CA</div>
+  <div>© 2026 Solfezz. Building in public.</div>
+  <div>Riverside County, CA</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const form = document.getElementById('contactForm');
-  const btn  = document.getElementById('submitBtn');
-  const ok   = document.getElementById('formOk');
-  const err  = document.getElementById('formErr');
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
 
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      ok.style.display = 'none'; err.style.display = 'none';
-      btn.disabled = true; btn.textContent = 'Sending...';
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST', body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset(); ok.style.display = 'block';
-          btn.textContent = 'Message Sent ✓';
-          setTimeout(() => { btn.disabled = false; btn.textContent = 'Send Message →'; }, 5000);
-        } else {
-          err.style.display = 'block';
-          bt
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Terminal Typewriter Effect
+  const codeString = `{
+  <span style="color: var(--accent);">"name"</span>: <span style="color: #a5d6ff;">"Solfezz"</span>,
+  <span style="color: var(--accent);">"role"</span>: <span style="color: #a5d6ff;">"Lead Full Stack Engineer"</span>,
+  <span style="color: var(--accent);">"experience"</span>: <span style="color: #ffa657;">10</span>,
+  <span style="color: var(--accent);">"stack"</span>: [
+    <span style="color: #a5d6ff;">"Laravel"</span>, <span style="color: #a5d6ff;">"Vue.js"</span>, <span style="color: #a5d6ff;">"AWS"</span>
+  ],
+  <span style="color: var(--accent);">"available"</span>: <span style="color: var(--green);">true</span>
+}`;
+
+  const container = document.getElementById('typewriter');
+  let i = 0;
+  let isTag = false;
+  let text = "";
+
+  function typeWriter() {
+    if (i < codeString.length) {
+      text = codeString.slice(0, i + 1);
+      container.innerHTML = text + '<span class="cursor"></span>';
+      
+      let delay = 15;
+      if (codeString.charAt(i) === '<') isTag = true;
+      if (codeString.charAt(i) === '>') isTag = false;
+      if (isTag) delay = 0; // Type HTML tags instantly
+      
+      i++;
+      setTimeout(typeWriter, delay);
+    }
+  }
+  
+  setTimeout(typeWriter, 500); // Start typing after 500ms
+</script>
+</body>
+</html>
